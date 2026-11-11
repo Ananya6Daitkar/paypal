@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101812"><meta name="description" content="A buyer-first checkout that checks the PayPal order against what you meant to buy.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23101812'/%3E%3Cpath d='M20 42V22h5v20m7 0V15h5v27m7 0V26h5v16' stroke='%23d5f475' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <title>IntentReceipt — the intent receipt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="IntentReceipt home"><span class="brandmark"><span></span><span></span><span></span></span><span>intent<span>receipt</span></span></a>
+    <div class="topmeta"><span class="sandbox"><i></i> PAYPAL SANDBOX</span><span class="topdivider"></span><button class="how" id="how">How the guard works <span>↗</span></button></div>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="live-dot"></span> A CHECKPOINT BEFORE CHECKOUT</div>
+        <h1>Your payment<br>should remember<br><em>what you meant.</em></h1>
+        <p>IntentReceipt checks your words against the cart and PayPal's live order. If a limit breaks, it shows the evidence and offers the smallest repair for you to approve.</p>
+        <div class="hero-proof"><span class="proof-icon">↳</span><span>AI can flag a mismatch.<br><b>Only you can approve the payment.</b></span></div>
+      </div>
+      <aside class="intent-ticket" aria-label="Intent receipt status">
+        <div class="ticket-top"><span>INTENT RECEIPT <b>№ 001</b></span><span class="ticket-stamp">SANDBOX</span></div>
+        <div class="ticket-rule"></div>
+        <div class="ticket-state"><span class="state-orbit"><i></i></span><div><small>CHECKPOINT STATUS</small><strong id="ticket-state">Awaiting your review</strong></div></div>
+        <div class="ticket-flow"><div class="flow-step active" id="flow-intent"><b>01</b><span>Your intent</span><i></i></div><div class="flow-step" id="flow-review"><b>02</b><span>Cart checked</span><i></i></div><div class="flow-step" id="flow-approve"><b>03</b><span>You approve</span><i></i></div><div class="flow-step" id="flow-verify"><b>04</b><span>Order verified</span></div></div>
+        <div class="ticket-bottom"><span>PAYMENT AUTHORITY</span><b>YOU, ALWAYS</b></div>
+      </aside>
+      <div class="hero-index" aria-hidden="true">CS / 01</div>
+    </section>
+
+    <div class="workspace">
+      <section class="card purchase-card">
+        <div class="card-head"><div><div class="step-label"><span>01</span> SET THE INTENT</div><h2>What did you come for?</h2></div><span class="micro-label">BUYER CONTROL</span></div>
+        <label class="fieldlabel" for="intent">In your own words</label>
+        <textarea id="intent" rows="2" maxlength="300" placeholder="e.g. A compact USB-C charger for travel, under $30"></textarea>
+        <div class="items-head"><span class="fieldlabel">Items in this cart</span><button class="add" id="add">＋ Add item</button></div>
+        <div class="item-columns" aria-hidden="true"><span>ITEM</span><span>UNIT</span><span>QTY</span><span></span></div>
+        <div id="items"></div>
+        <div class="total-row"><span>Reviewed total <small>USD</small></span><strong id="total">$0.00</strong></div>
+        <button class="reviewbtn" id="review"><span>Check this purchase</span><span class="btn-arrow">↗</span></button>
+        <div class="no-charge"><span>✳</span> No charge happens here. You approve next.</div>
+      </section>
+
+      <section class="right-column">
+        <section class="card verdict-card" id="reviewcard">
+          <div class="card-head verdict-head"><div><div class="step-label"><span>02</span> THE INTENT CHECK</div><h2>Does the cart keep its promise?</h2></div><span class="scan-mark">⌁</span></div>
+          <div class="empty-state" id="empty"><div class="empty-graphic"><span class="graphic-ring ring-one"></span><span class="graphic-ring ring-two"></span><span class="graphic-core">?</span></div><div><h3>Nothing moves until it adds up.</h3><p>We compare your note with the cart, then show you what we found. No quiet edits. No surprise capture.</p></div><div class="empty-caption"><span>WAITING FOR INPUT</span><span>— — — — — — —</span></div></div>
+          <div id="result" hidden></div>
+        </section>
+        <section class="card pay-card">
+          <div class="pay-head"><div><div class="step-label"><span>03</span> YOUR PAYPAL CHECKOUT</div><h3>Review. Then decide.</h3></div><div class="paypal-lockup"><b>Pay</b><b>Pal</b><span>↗</span></div></div>
+          <p class="pay-hint" id="payhint">Complete the intent check to continue.</p>
+          <div id="paypal-button-container"></div>
+          <div class="payment-status" id="paymentstatus" aria-live="polite"></div>
+          <div class="pay-foot"><span class="lock-icon">▣</span> PayPal handles approval. IntentReceipt verifies before capture.</div>
+        </section>
+      </section>
+    </div>
+    <footer><span>IntentReceipt <i>·</i> THE INTENT RECEIPT</span><span>Test transactions only <b>·</b> PayPal Sandbox</span></footer>
+  </main>
+
+  <dialog id="howdialog"><button class="close" id="close" aria-label="Close">×</button><div class="dialog-kicker">THE INTENT RECEIPT / METHOD</div><h2>A promise in.<br>A verified order out.</h2><ol><li><b>You describe the purchase.</b> Your own words become the reference for the review.</li><li><b>AI checks for mismatch.</b> It can explain concerns, but cannot edit the cart, choose the price, or authorize money.</li><li><b>PayPal's order is checked again.</b> The server retrieves the approved order and compares merchant, amount, currency, and line items with the reviewed snapshot before capture.</li><li><b>You make the final call.</b> If the check fails, capture is blocked. Sandbox transactions use test money only.</li></ol><p>Offline preview mode is labeled and cannot unlock payment.</p></dialog>
+  <script src="/app.js" defer></script>
+</body>
+</html>
