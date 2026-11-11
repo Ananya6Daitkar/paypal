@@ -187,7 +187,7 @@ def validate_ai_findings(findings,intent,items):
 def assess(intent, items):
     """AI findings need source quotes; deterministic money checks stay outside the model."""
     if OPENAI_API_KEY:
-        system="You are CartSentry, a cautious purchase-intent reviewer. Compare the buyer's request with cart item names. You cannot approve payments, change amounts, or infer facts not supplied. Return JSON only: {\"summary\":string,\"risk\":\"low\"|\"review\"|\"high\",\"findings\":[{\"item\":string,\"reason\":string,\"severity\":\"info\"|\"review\"|\"high\",\"evidence\":{\"intent_quote\":string,\"cart_quote\":string}}],\"confidence\":number}. Each finding MUST quote an exact, case-insensitive substring from the buyer intent and an exact substring from the named cart item. Never paraphrase evidence. If no quote supports a concern, omit it. Max 3 findings."
+        system="You are MeantToBe, a cautious purchase-intent reviewer. Compare the buyer's request with cart item names. You cannot approve payments, change amounts, or infer facts not supplied. Return JSON only: {\"summary\":string,\"risk\":\"low\"|\"review\"|\"high\",\"findings\":[{\"item\":string,\"reason\":string,\"severity\":\"info\"|\"review\"|\"high\",\"evidence\":{\"intent_quote\":string,\"cart_quote\":string}}],\"confidence\":number}. Each finding MUST quote an exact, case-insensitive substring from the buyer intent and an exact substring from the named cart item. Never paraphrase evidence. If no quote supports a concern, omit it. Max 3 findings."
         payload={"model":MODEL,"temperature":0,"response_format":{"type":"json_object"},"messages":[{"role":"system","content":system},{"role":"user","content":json.dumps({"intent":intent,"items":[{"name":x["name"],"quantity":x["quantity"]} for x in items]})}]}
         req=urllib.request.Request("https://api.openai.com/v1/chat/completions", data=json.dumps(payload).encode(), headers={"Authorization":"Bearer "+OPENAI_API_KEY,"Content-Type":"application/json"})
         try:
@@ -235,8 +235,8 @@ class Handler(SimpleHTTPRequestHandler):
                 aid=data.get("analysisId")
                 with lock: a=analyses.get(aid)
                 assert_order_allowed(a)
-                pu={"reference_id":"intent-checked-cart","description":"CartSentry reviewed checkout","amount":{"currency_code":"USD","value":a["total"]},"items":[{"name":x["name"],"quantity":str(x["quantity"]),"unit_amount":{"currency_code":"USD","value":str(x["price"])}} for x in a["items"]]}
-                result=paypal("POST","/v2/checkout/orders",{"intent":"CAPTURE","purchase_units":[pu],"application_context":{"brand_name":"IntentReceipt Sandbox","user_action":"PAY_NOW"}},"cs-"+aid[:30])
+                pu={"reference_id":"intent-checked-cart","description":"MeantToBe reviewed checkout","amount":{"currency_code":"USD","value":a["total"]},"items":[{"name":x["name"],"quantity":str(x["quantity"]),"unit_amount":{"currency_code":"USD","value":str(x["price"])}} for x in a["items"]]}
+                result=paypal("POST","/v2/checkout/orders",{"intent":"CAPTURE","purchase_units":[pu],"application_context":{"brand_name":"MeantToBe Sandbox","user_action":"PAY_NOW"}},"mtb-"+aid[:30])
                 if not result.get("id"): raise ValueError("PayPal did not return an order ID.")
                 with lock: a["used"]=True; orders[result["id"]]=aid
                 self.send_json(200,{"id":result["id"]}); return
@@ -256,5 +256,5 @@ class Handler(SimpleHTTPRequestHandler):
         except Exception as e: self.send_json(502,{"error":str(e)[:240]})
 
 if __name__=="__main__":
-    print("IntentReceipt on http://localhost:%s"%PORT)
+    print("MeantToBe on http://localhost:%s"%PORT)
     ThreadingHTTPServer(("0.0.0.0",PORT),Handler).serve_forever()

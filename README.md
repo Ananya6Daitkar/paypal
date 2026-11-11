@@ -1,6 +1,6 @@
-# IntentReceipt — The Intent Receipt
+# MeantToBe — The Intent Receipt
 
-**Your payment should remember what you meant.** IntentReceipt turns a buyer's plain-language intent into a visible review checkpoint, compares it with cart line items, and checks the approved PayPal Sandbox order against the exact reviewed snapshot before capture. AI findings must cite literal text from both the request and item name; the server suppresses unsupported claims and requires clarification. If an explicit budget is exceeded, a deterministic subset search can propose a smallest cart removal that retains an intent-relevant item. The buyer chooses whether to apply it, and the edited cart requires a fresh review. AI cannot edit the cart, set the price, or authorize payment. The four-stage “Intent Receipt” makes that boundary visible: intent → review → buyer approval → PayPal order verification.
+**Your payment should remember what you meant.** MeantToBe turns a buyer's plain-language intent into a visible review checkpoint, compares it with cart line items, and checks the approved PayPal Sandbox order against the exact reviewed snapshot before capture. AI findings must cite literal text from both the request and item name; the server suppresses unsupported claims and requires clarification. If an explicit budget is exceeded, a deterministic subset search can propose a smallest cart removal that retains an intent-relevant item. The buyer chooses whether to apply it, and the edited cart requires a fresh review. AI cannot edit the cart, set the price, or authorize payment. The four-stage “Intent Receipt” makes that boundary visible: intent → review → buyer approval → PayPal order verification.
 
 ## Status
 
@@ -17,7 +17,7 @@ set -a; source .env; set +a
 python3 server.py
 ```
 
-Open http://localhost:8000. For the review-only local experience, PayPal credentials are optional. Without `OPENAI_API_KEY`, IntentReceipt uses a transparent keyword baseline and identifies it as such. Without PayPal credentials, no checkout button is offered. To exercise checkout end to end, provide sandbox REST app client ID and secret and use a sandbox buyer account. The browser SDK gets only the client ID; secrets stay on the server.
+Open http://localhost:8000. For the review-only local experience, PayPal credentials are optional. Without `OPENAI_API_KEY`, MeantToBe uses a transparent keyword baseline and identifies it as such. Without PayPal credentials, no checkout button is offered. To exercise checkout end to end, provide sandbox REST app client ID and secret and use a sandbox buyer account. The browser SDK gets only the client ID; secrets stay on the server.
 
 Never put credentials in source control. This prototype has in-memory review/order state and is intended for local judging, not production deployment. Restarting the process clears it.
 

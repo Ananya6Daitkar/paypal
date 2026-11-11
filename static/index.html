@@ -4,14 +4,14 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#101812"><meta name="description" content="A buyer-first checkout that checks the PayPal order against what you meant to buy.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23101812'/%3E%3Cpath d='M20 42V22h5v20m7 0V15h5v27m7 0V26h5v16' stroke='%23d5f475' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
-  <title>IntentReceipt — the intent receipt</title>
+  <title>MeantToBe — the intent receipt</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="/" aria-label="IntentReceipt home"><span class="brandmark"><span></span><span></span><span></span></span><span>intent<span>receipt</span></span></a>
+    <a class="brand" href="/" aria-label="MeantToBe home"><span class="brandmark"><span></span><span></span><span></span></span><span>meant<span>tobe</span></span></a>
     <div class="topmeta"><span class="sandbox"><i></i> PAYPAL SANDBOX</span><span class="topdivider"></span><button class="how" id="how">How the guard works <span>↗</span></button></div>
   </header>
   <main>
@@ -19,7 +19,7 @@
       <div class="hero-copy">
         <div class="eyebrow"><span class="live-dot"></span> A CHECKPOINT BEFORE CHECKOUT</div>
         <h1>Your payment<br>should remember<br><em>what you meant.</em></h1>
-        <p>IntentReceipt checks your words against the cart and PayPal's live order. If a limit breaks, it shows the evidence and offers the smallest repair for you to approve.</p>
+        <p>MeantToBe checks your words against the cart and PayPal's order. If a limit breaks, it shows the evidence and offers the smallest repair for you to approve.</p>
         <div class="hero-proof"><span class="proof-icon">↳</span><span>AI can flag a mismatch.<br><b>Only you can approve the payment.</b></span></div>
       </div>
       <aside class="intent-ticket" aria-label="Intent receipt status">
@@ -29,7 +29,7 @@
         <div class="ticket-flow"><div class="flow-step active" id="flow-intent"><b>01</b><span>Your intent</span><i></i></div><div class="flow-step" id="flow-review"><b>02</b><span>Cart checked</span><i></i></div><div class="flow-step" id="flow-approve"><b>03</b><span>You approve</span><i></i></div><div class="flow-step" id="flow-verify"><b>04</b><span>Order verified</span></div></div>
         <div class="ticket-bottom"><span>PAYMENT AUTHORITY</span><b>YOU, ALWAYS</b></div>
       </aside>
-      <div class="hero-index" aria-hidden="true">CS / 01</div>
+      <div class="hero-index" aria-hidden="true">MTB / 01</div>
     </section>
 
     <div class="workspace">
@@ -56,11 +56,11 @@
           <p class="pay-hint" id="payhint">Complete the intent check to continue.</p>
           <div id="paypal-button-container"></div>
           <div class="payment-status" id="paymentstatus" aria-live="polite"></div>
-          <div class="pay-foot"><span class="lock-icon">▣</span> PayPal handles approval. IntentReceipt verifies before capture.</div>
+          <div class="pay-foot"><span class="lock-icon">▣</span> PayPal handles approval. MeantToBe verifies before capture.</div>
         </section>
       </section>
     </div>
-    <footer><span>IntentReceipt <i>·</i> THE INTENT RECEIPT</span><span>Test transactions only <b>·</b> PayPal Sandbox</span></footer>
+    <footer><span>MeantToBe <i>·</i> THE INTENT RECEIPT</span><span>Test transactions only <b>·</b> PayPal Sandbox</span></footer>
   </main>
 
   <dialog id="howdialog"><button class="close" id="close" aria-label="Close">×</button><div class="dialog-kicker">THE INTENT RECEIPT / METHOD</div><h2>A promise in.<br>A verified order out.</h2><ol><li><b>You describe the purchase.</b> Your own words become the reference for the review.</li><li><b>AI checks for mismatch.</b> It can explain concerns, but cannot edit the cart, choose the price, or authorize money.</li><li><b>PayPal's order is checked again.</b> The server retrieves the approved order and compares merchant, amount, currency, and line items with the reviewed snapshot before capture.</li><li><b>You make the final call.</b> If the check fails, capture is blocked. Sandbox transactions use test money only.</li></ol><p>Offline preview mode is labeled and cannot unlock payment.</p></dialog>
